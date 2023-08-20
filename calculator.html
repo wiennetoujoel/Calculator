@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="calculator.css" rel="stylesheet">
+    <title>
+        Calculator App
+    </title>
+
+</head>
+
+<body>
+    <div class="container text-center">
+        <div class="text-input">
+            <div class="input-1" id="equation">
+            </div>
+            <div class="input-2">
+                <input type="input" id="result" style="text-align: right;">
+            </div>
+        </div>
+        <div class="calc-input">
+            <div class="row">
+                <div class="col">
+                    <button id="AC" class="non-numeric" value="AC" onclick="clearAllResult()">AC</button>
+                </div>
+                <div class="col">
+                    <button id="+/-" class="non-numeric" value="+/-" onclick="negateValue(this.value)">+/-</button>
+                </div>
+                <div class="col">
+                    <button id="%" class="non-numeric" value="%" onclick="percentage(this.value)">%</button>
+                </div>
+                <div class="col">
+                    <button id="÷" class="non-numeric" value="/" onclick="appendToResult(this.value)">÷</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button id="7" class="numeric" value="7" onclick="appendToResult(this.value)">7</button>
+                </div>
+                <div class="col">
+                    <button id="8" class="numeric" value="8" onclick="appendToResult(this.value)">8</button>
+                </div>
+                <div class="col">
+                    <button id="9" class="numeric" value="9" onclick="appendToResult(this.value)">9</button>
+                </div>
+                <div class="col">
+                    <button id="x" class="non-numeric" value="*" onclick="appendToResult(this.value)">x</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button id="4" class="numeric" value="4" onclick="appendToResult(this.value)">4</button>
+                </div>
+                <div class="col">
+                    <button id="5" class="numeric" value="5" onclick="appendToResult(this.value)">5</button>
+                </div>
+                <div class="col">
+                    <button id="6" class="numeric" value="6" onclick="appendToResult(this.value)">6</button>
+                </div>
+                <div class="col">
+                    <button id="-" class="non-numeric" value="-" onclick="appendToResult(this.value)">-</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button id="1" class="numeric" value="1" onclick="appendToResult(this.value)">1</button>
+                </div>
+                <div class="col">
+                    <button id="2" class="numeric" value="2" onclick="appendToResult(this.value)">2</button>
+                </div>
+                <div class="col">
+                    <button id="3" class="numeric" value="3" onclick="appendToResult(this.value)">3</button>
+                </div>
+                <div class="col">
+                    <button id="+" class="non-numeric" value="+" onclick="appendToResult(this.value)">+</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button id="C" class="non-numeric" value="C" onclick="clearResult()">C</button>
+                </div>
+                <div class="col">
+                    <button id="0" class="numeric" value="0" onclick="appendToResult(this.value)">0</button>
+                </div>
+                <div class="col">
+                    <button id="." class="non-numeric" value="." onclick="appendToResult(this.value)">.</button>
+                </div>
+                <div class="col">
+                    <button id="=" class="non-numeric" value="=" onclick="calculate()">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let isPercentCalculation = false;
+
+        document.getElementById("result").value = '0';
+        document.getElementById("equation").innerText = '0';
+
+        function clearAllResult(value) {
+            document.getElementById("result").value = '0';
+            document.getElementById("equation").innerText = '0';
+            isPercentCalculation = false;
+        };
+
+        function clearResult(value) {
+            document.getElementById("result").value = '0';
+            isPercentCalculation = false;
+        };
+
+        function appendToResult(value) {
+
+            if (document.getElementById("result").value === '0') {
+                document.getElementById("result").value = value;
+            }
+
+            else if (value === '+' || value === '-' || value === '*' || value === '/' || value === '=') {
+                if (document.getElementById("equation").innerText == '0') {
+                    document.getElementById("equation").innerText = document.getElementById("result").value + value;
+                } else {
+                    document.getElementById("equation").innerText += document.getElementById("result").value + value;
+                }
+
+                document.getElementById("result").value = '0';
+            } else {
+                document.getElementById("result").value += value;
+            }
+
+
+
+        };
+
+        function negateValue() {
+            document.getElementById("result").value = -eval(document.getElementById("result").value);
+        }
+
+        function percentage() {
+            const inputValue = document.getElementById("result").value;
+
+            if (!isPercentCalculation) {
+                document.getElementById("result").value = parseFloat(inputValue) / 100; // Mengubah ke desimal
+                isPercentCalculation = true;
+            }
+        }
+
+
+        function calculate() {
+            var equationValue = document.getElementById("equation").innerText;
+            var resultValue = document.getElementById("result").value;
+
+            var total = equationValue + resultValue;
+
+            try {
+                if (resultValue != '0') {
+                    document.getElementById("equation").innerText += document.getElementById("result").value;
+                    document.getElementById("result").value = eval(total);
+                } else{
+                    document.getElementById("result").value = eval(equationValue);
+                }
+
+            } catch (error) {
+                document.getElementById("result").value = "error";
+            }
+
+            isPercentCalculation = false;
+        };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    </script>
+</body>
+
+</html>

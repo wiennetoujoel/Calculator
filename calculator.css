@@ -1,0 +1,71 @@
+.container {
+    max-width: 240px;
+    height: 480px;
+    color: white;
+    font-family: Helvetica, sans-serif;
+    background-color: black;
+    position: relative;
+    transform: translateY(10%);
+    border-radius: 1em;
+
+    .text-input {
+        text-align: right;
+        align-items: center;
+
+
+        .input-1 {
+            opacity: 1;
+            padding-top: 35px;
+            padding-bottom: 10px;
+            font-size: smaller;
+            background-color: black;
+            
+        }
+
+        .input-2 {
+            font-size: larger;
+            padding-bottom: 50px;
+        }
+    }
+
+    .calc-input {
+        margin: 0px 0px;
+        background-color: black;
+        color: white;
+        font-size: 1rem;
+        align-items: center;
+      
+        .row {
+            padding: 0.5rem 0;
+            
+            height: auto;
+            
+           
+
+            .col {
+               
+                max-width: 100%;
+                max-height: 100%;
+                display: inline-block;
+                            
+            }
+        }
+
+    }
+}
+
+button {
+    background-color: rgb(203, 207, 211);
+    width: 120%;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+}
+
+
+
+
+.card {
+    background-color: grey;
+}
